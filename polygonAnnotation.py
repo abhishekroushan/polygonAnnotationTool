@@ -51,12 +51,16 @@ class Polygon(object):
             return None
         return self.points[0]
 
+def printPolygon(polygon):
+    polygonStr = json.dumps(polygon, indent=4, cls=CustomEncoder)
+    print("debug polygon str = ", polygonStr)
 class TextWriter(object):
     def __init__(self, txtFileName:str):
         self.file = txtFileName
     def writePolygonToFile(self, polygon, file):
         # polygon: Polygon, file : File() ptr
         polygonStr = json.dumps(polygon, indent=4, cls=CustomEncoder)
+        print("debug polygon str = ", polygonStr)
         file.write(polygonStr+",\n")
     def writePolygonsToFile(self, polygons):
         # polygons : List[Polygon]
@@ -110,8 +114,10 @@ class Canvas:
             lpx, lpy = lp.data() # directly query data since self.currPoly is valid
             self.C.create_line(lpx, lpy, fpx, fpy, width=5)
             self.polys.append(self.currPoly)
-            self.currPoly.clear()
+            # self.currPoly.clear()
             print("current Polygon completed, and added to Canvas polygons")
+            print("total polygons = ", len(self.polygons()))
+            printPolygon(self.polygons()[0])
     def getCoordinate(self, event):
         x = event.x
         y = event.y
@@ -119,6 +125,9 @@ class Canvas:
         return x,y
     def writePolygons(self):
         polys = self.polygons()
+        print("total polygons = ", len(self.polygons()))
+        printPolygon(self.polygons()[0])
+        
         txtFileName = "./data.txt"
         writer = TextWriter(txtFileName)
         writer.writePolygonsToFile(polys)
