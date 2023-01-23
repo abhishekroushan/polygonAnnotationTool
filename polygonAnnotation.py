@@ -13,6 +13,9 @@ from PIL import ImageTk, Image
 import json
 from json import JSONEncoder
 
+"""
+class Point2d class to represent a 2 dimensional point on canvas
+"""
 class Point2d(object):
     def __init__(self, x:float, y:float):
         self.x = x
@@ -23,10 +26,19 @@ class Point2d(object):
         self.x = 0
         self.y = 0
 
+"""
+class CustomEncoder class to represent an encoder for any 
+class object to json object conversion
+"""
 class CustomEncoder(json.JSONEncoder):
     def default(self, o):
             return o.__dict__
 
+"""
+class Polygon  class to represent a Polygon strucutre
+Consists of a list of points (Point2d) and helper methods 
+to add/generate/clear/access the points in the Polygon
+"""
 class Polygon(object):
     def __init__(self, listOfPoint2d):
         # listOfPoint2d : List[Point2d]
@@ -55,6 +67,11 @@ class Polygon(object):
 def printPolygon(polygon):
     polygonStr = json.dumps(polygon, indent=4, cls=CustomEncoder)
     print("debug polygon str = ", polygonStr)
+
+"""
+class TextWriter  class responsible to write polygons to
+a given txtFileName (text file)
+"""
 class TextWriter(object):
     def __init__(self, txtFileName:str):
         self.file = txtFileName
@@ -69,7 +86,12 @@ class TextWriter(object):
             for i in range(0, len(polygons)):
                 self.writePolygonToFile(polygons[i], txtFile)
 
-
+"""
+class Canvas: class responsible for the Canvas object
+create canvas, import image on canvas, handle drawing polygons,
+along with Buttons (and callbacks) for completing the polygons
+and writing the polygons to file
+"""
 class Canvas:
     def __init__(self):
         self.C = None
