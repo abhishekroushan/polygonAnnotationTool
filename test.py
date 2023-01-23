@@ -8,14 +8,21 @@ Author: Abhishek Roushan abhishek.roushan12@gmail.com
 from polygonAnnotation import *
 
 
-def testPolygonsWrite():
+def testPolygonsWrite(polys=[]):
     txtFileName = "./data.txt"
     writer = TextWriter(txtFileName)
     polygons = [Polygon([Point2d(0,0), Point2d(1,0), Point2d(0,1)]),
                 Polygon([Point2d(-3.4,5), Point2d(5,7), Point2d(6.7,2.1), Point2d(4.33, 5.1)])]
+    writePoly = polygons if len(polys)==0 else polys
     writer.writePolygonsToFile(polygons)
 
 
-testPolygonsWrite()
+# testPolygonsWrite()
+
+def testCanvas():
+    c = Canvas()
+    c.create()
+
+testCanvas()
 
 
