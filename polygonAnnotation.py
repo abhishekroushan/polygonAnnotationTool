@@ -99,7 +99,7 @@ class Canvas:
         if lp is not None:
             # add x,y to self.currPoly and create a line from last point
             lpx, lpy = lp.data()
-            self.C.create_line(lpx, lpy, x, y, width=5)
+            self.C.create_line(lpx, lpy, x, y, width=3)
         # create currPoly with new point from x,y
         self.currPoly.addPoint(Point2d(x,y))
     def completePoly(self):
@@ -113,7 +113,7 @@ class Canvas:
             fpx, fpy = fp.data()
             lp = self.currPoly.lastPoint()
             lpx, lpy = lp.data() # directly query data since self.currPoly is valid
-            self.C.create_line(lpx, lpy, fpx, fpy, width=5)
+            self.C.create_line(lpx, lpy, fpx, fpy, width=3)
             self.polys.append(copy.deepcopy(self.currPoly))
             self.currPoly.clear()
             print("current Polygon completed, and added to Canvas polygons")
@@ -128,7 +128,6 @@ class Canvas:
         polys = self.polygons()
         print("total polygons = ", len(self.polygons()))
         printPolygon(self.polygons()[0])
-        
         txtFileName = "./data.txt"
         writer = TextWriter(txtFileName)
         writer.writePolygonsToFile(polys)
