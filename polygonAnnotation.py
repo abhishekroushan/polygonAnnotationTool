@@ -7,6 +7,7 @@ annotation, segmenting, machine learning etc.
 Author: Abhishek Roushan abhishek.roushan12@gmail.com
 """
 
+import copy
 import tkinter as tk
 from PIL import ImageTk, Image
 import json
@@ -113,8 +114,8 @@ class Canvas:
             lp = self.currPoly.lastPoint()
             lpx, lpy = lp.data() # directly query data since self.currPoly is valid
             self.C.create_line(lpx, lpy, fpx, fpy, width=5)
-            self.polys.append(self.currPoly)
-            # self.currPoly.clear()
+            self.polys.append(copy.deepcopy(self.currPoly))
+            self.currPoly.clear()
             print("current Polygon completed, and added to Canvas polygons")
             print("total polygons = ", len(self.polygons()))
             printPolygon(self.polygons()[0])
